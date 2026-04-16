@@ -75,7 +75,7 @@
         <img src="anh3.jpg">
     </div> <script>
         const container = document.getElementById('star-container');
-        const starCount = 30; // Số lượng ít cho đỡ rối mắt
+        const starCount = 50; // Số lượng ít cho đỡ rối mắt
 
         function getRandomHologramColor() {
             const hue = Math.random() * 360;
@@ -85,7 +85,7 @@
         for (let i = 0; i < starCount; i++) {
             const star = document.createElement('div');
             star.className = 'star';
-            
+        }
             // Tăng kích thước sao to (4px - 16px)
             const sizeValue = Math.random() * 12 + 4; 
             const sizeValue = Math.random() * 25 + 15;
