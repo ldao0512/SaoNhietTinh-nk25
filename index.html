@@ -74,42 +74,44 @@
         <img src="anh2.jpg">
         <img src="anh3.jpg">
     </div> <script>
-        const container = document.getElementById('star-container');
-        const starCount = 50; // Số lượng ít cho đỡ rối mắt
+    const container = document.getElementById('star-container');
+    const starCount = 50; 
 
-        function getRandomHologramColor() {
-            const hue = Math.random() * 360;
-            return `hsl(${hue}, 100%, 85%)`; 
-        }
+    function getRandomHologramColor() {
+        const hue = Math.random() * 360;
+        return `hsl(${hue}, 100%, 85%)`; 
+    }
 
-        for (let i = 0; i < starCount; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-        }
-            // Tăng kích thước sao to (4px - 16px)
-            const sizeValue = Math.random() * 12 + 4; 
-            const sizeValue = Math.random() * 25 + 15;
+    // Bắt đầu vòng lặp
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+
+        // 1. Chỉ giữ lại 1 dòng sizeValue to nhất (15px - 40px)
+        const sizeValue = Math.random() * 25 + 15; 
         star.style.width = sizeValue + 'px';
         star.style.height = sizeValue + 'px';
 
-            const left = Math.random() * 150 - 50 + 'vw'; 
-            
-            // Tốc độ cực chậm (60s - 90s cho 1 lần rơi)
-            const duration = Math.random() * 30 + 60 + 's'; 
-            const delay = Math.random() * -60 + 's';
-            const color = getRandomHologramColor();
+        // 2. Vị trí và thời gian rơi
+        const left = Math.random() * 150 - 50 + 'vw'; 
+        const duration = Math.random() * 30 + 60 + 's'; 
+        const delay = Math.random() * -60 + 's';
+        const color = getRandomHologramColor();
 
-            star.style.opacity = Math.random() * 0.5 + 0.3; 
-            star.style.animationDuration = duration;
-            star.style.animationDelay = delay;
-            star.style.left = left;
-            star.style.background = color;
+        // 3. Gán các thuộc tính hiển thị
+        star.style.opacity = Math.random() * 0.5 + 0.3; 
+        star.style.animationDuration = duration;
+        star.style.animationDelay = delay;
+        star.style.left = left;
+        star.style.background = color;
 
-            const blur = sizeValue * 2 + 'px';
-            star.style.boxShadow = `0 0 ${blur} ${color}, 0 0 ${sizeValue * 4}px ${color}`;
+        // 4. Tạo quầng sáng lấp lánh
+        const blur = sizeValue * 2 + 'px';
+        star.style.boxShadow = `0 0 ${blur} ${color}, 0 0 ${sizeValue * 4}px ${color}`;
 
-            container.appendChild(star);
-        }
-    </script>
+        // 5. Đưa hoa sao vào màn hình
+        container.appendChild(star);
+    } // Đóng ngoặc nhọn của vòng lặp FOR ở ĐÂY mới đúng!
+</script>
 </body>
 </html>
