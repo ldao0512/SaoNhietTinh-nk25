@@ -16,33 +16,34 @@
         }
 
         /* 2. Hiệu ứng sao rơi (Meteor) */
-        .night {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            transform: rotateZ(45deg);
-        }
+       .night {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    overflow: hidden; /* Không cho sao bay ra ngoài màn hình */
+}
 
-        .shooting_star {
-            position: absolute;
-            left: 50%; top: 50%;
-            height: 2px;
-            background: linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0));
-            border-radius: 999px;
-            filter: drop-shadow(0 0 6px #699bff);
-            animation: tail 3000ms ease-in-out infinite, shooting 3000ms ease-in-out infinite;
-        }
+.star {
+    position: absolute;
+    background-image: url('ngoisao.jpg'); /* Sử dụng ảnh của bạn */
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+    filter: hue-rotate(0deg); /* Để đổi màu hologram */
+    animation: falling linear infinite;
+}
 
-        @keyframes tail { 0% { width: 0; } 30% { width: 100px; } 100% { width: 0; } }
-        @keyframes shooting { 0% { transform: translateX(0); } 100% { transform: translateX(300px); } }
-
-        /* Tạo nhiều ngôi sao ở các vị trí khác nhau */
-        .shooting_star:nth-child(1) { top: 10%; left: 20%; animation-delay: 0ms; }
-        .shooting_star:nth-child(2) { top: 30%; left: 50%; animation-delay: 1500ms; }
-        .shooting_star:nth-child(3) { top: 50%; left: 10%; animation-delay: 2500ms; }
-        .shooting_star:nth-child(4) { top: 70%; left: 80%; animation-delay: 4000ms; }
-        .shooting_star:nth-child(5) { top: 20%; left: 90%; animation-delay: 5500ms; }
+@keyframes falling {
+    0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) translateX(100px) rotate(360deg);
+        opacity: 0.3;
+    }
+}
 
         /* 3. Bố cục ảnh kỷ niệm */
         .gallery { 
@@ -67,14 +68,8 @@
     </style>
 </head>
 <body>
-    <div class="night">
-        <div class="shooting_star"></div>
-        <div class="shooting_star"></div>
-        <div class="shooting_star"></div>
-        <div class="shooting_star"></div>
-        <div class="shooting_star"></div>
+  <div class="night" id="star-container">
     </div>
-
     <h1>🌟 Kỷ Niệm Sao Nhiệt Tình 🌟</h1>
     <p>Nhiệm kỳ 2025 - Những ngôi sao tỏa sáng cùng nhau</p>
 
@@ -83,5 +78,31 @@
         <img src="anh2.jpg">
         <img src="anh3.jpg">
     </div>
+    <script>
+    const container = document.getElementById('star-container');
+    const starCount = 100; // Số lượng ngôi sao bạn muốn
+
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        // Tạo các thông số ngẫu nhiên
+        const size = Math.random() * 30 + 10 + 'px'; // To nhỏ từ 10px - 40px
+        const left = Math.random() * 100 + 'vw';     // Vị trí ngang ngẫu nhiên
+        const duration = Math.random() * 3 + 2 + 's'; // Tốc độ rơi 2s - 5s
+        const delay = Math.random() * 5 + 's';        // Thời gian chờ xuất hiện
+        const hue = Math.random() * 360 + 'deg';      // Màu Hologram ngẫu nhiên
+
+        // Áp dụng vào CSS của từng ngôi sao
+        star.style.width = size;
+        star.style.height = size;
+        star.style.left = left;
+        star.style.animationDuration = duration;
+        star.style.animationDelay = delay;
+        star.style.filter = `hue-rotate(${hue}) drop-shadow(0 0 5px white)`;
+
+        container.appendChild(star);
+    }
+</script>
 </body>
 </html>
