@@ -3,14 +3,34 @@
 <head>
     <title>Kỷ Niệm Sao Nhiệt Tình nk25</title>
 <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            background-color: #f9f9f9; 
+            margin: 0;
+            padding: 20px;
+        }
+        .gallery { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 25px; 
+            padding: 20px; 
+            align-items: flex-start; /* Giúp các ảnh cao thấp khác nhau vẫn thẳng hàng trên */
+        }
         img { 
-            max-width: 100%; 
-            height: auto;    /* Giữ đúng tỷ lệ ảnh gốc */
-            width: 300px;    /* Độ rộng bạn muốn */
+            width: 300px; 
+            height: auto;    /* Đảm bảo KHÔNG BỊ MÉO */
             border-radius: 15px; 
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-        } /* Phải có dấu ngoặc đóng này */
-
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transition: 0.3s;
+        }
+        img:hover {
+            transform: scale(1.03); /* Hiệu ứng phóng to nhẹ khi di chuột vào */
+        }
+        h1 { color: #d63031; margin-bottom: 5px; }
+        p { color: #636e72; }
+    </style>
         .gallery {
             display: flex;
             flex-wrap: wrap;
