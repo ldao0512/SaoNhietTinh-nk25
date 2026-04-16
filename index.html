@@ -3,52 +3,80 @@
 <head>
     <title>Kỷ Niệm Sao Nhiệt Tình nk25</title>
     <style>
-        /* Nhúng font Limerence (giống y hệt ảnh bạn gửi) */
-        @font-face {
-            font-family: 'Limerence';
-            src: url('https://cdn.jsdelivr.net/gh/mshanh/font@main/Limerence.ttf');
-        }
-
+        /* 1. Tạo nền bầu trời đêm chuyển màu */
         body { 
-            font-family: 'Limerence', cursive; 
-            text-align: center; 
-            background-color: #f9f9f9; 
-            margin: 0; 
+            margin: 0;
             padding: 20px;
-            color: #333;
+            text-align: center;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        h1 { 
-            font-size: 3.5em; /* Font này hơi mảnh nên mình để to cho đẹp */
-            color: #d63031;
-            margin-bottom: 10px;
+        /* 2. Hiệu ứng sao rơi (Meteor) */
+        .night {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            transform: rotateZ(45deg);
         }
 
-        p { font-size: 1.5em; }
+        .shooting_star {
+            position: absolute;
+            left: 50%; top: 50%;
+            height: 2px;
+            background: linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0));
+            border-radius: 999px;
+            filter: drop-shadow(0 0 6px #699bff);
+            animation: tail 3000ms ease-in-out infinite, shooting 3000ms ease-in-out infinite;
+        }
 
+        @keyframes tail { 0% { width: 0; } 30% { width: 100px; } 100% { width: 0; } }
+        @keyframes shooting { 0% { transform: translateX(0); } 100% { transform: translateX(300px); } }
+
+        /* Tạo nhiều ngôi sao ở các vị trí khác nhau */
+        .shooting_star:nth-child(1) { top: 10%; left: 20%; animation-delay: 0ms; }
+        .shooting_star:nth-child(2) { top: 30%; left: 50%; animation-delay: 1500ms; }
+        .shooting_star:nth-child(3) { top: 50%; left: 10%; animation-delay: 2500ms; }
+        .shooting_star:nth-child(4) { top: 70%; left: 80%; animation-delay: 4000ms; }
+        .shooting_star:nth-child(5) { top: 20%; left: 90%; animation-delay: 5500ms; }
+
+        /* 3. Bố cục ảnh kỷ niệm */
         .gallery { 
-            display: flex; 
-            flex-wrap: wrap; 
-            justify-content: center; 
-            gap: 25px; 
-            padding: 20px; 
-            align-items: flex-start;
+            display: flex; flex-wrap: wrap; justify-content: center; 
+            gap: 30px; padding: 40px; align-items: flex-start;
         }
-
+        
         img { 
-            width: 300px; 
-            height: auto;
-            border-radius: 15px; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            transition: 0.3s;
+            width: 300px; height: auto; border-radius: 15px; 
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+            transition: 0.4s;
+            border: 2px solid rgba(255,255,255,0.2);
         }
 
-        img:hover { transform: scale(1.05); }
+        img:hover { 
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 0 30px rgba(95, 145, 255, 0.5);
+            border-color: #5f91ff;
+        }
+
+        h1 { font-size: 3em; color: #fff; text-shadow: 0 0 10px #5f91ff; }
     </style>
 </head>
 <body>
+    <div class="night">
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+    </div>
+
     <h1>🌟 Kỷ Niệm Sao Nhiệt Tình 🌟</h1>
-    <p>Nơi lưu giữ những khoảnh khắc của chúng ta!</p>
+    <p>Nhiệm kỳ 2025 - Những ngôi sao tỏa sáng cùng nhau</p>
 
     <div class="gallery">
         <img src="anh1.jpg">
