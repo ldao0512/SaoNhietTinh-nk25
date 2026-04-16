@@ -3,37 +3,51 @@
 <head>
     <title>Kỷ Niệm Sao Nhiệt Tình nk25</title>
     <style>
+        /* Nhúng font Limerence (giống y hệt ảnh bạn gửi) */
+        @font-face {
+            font-family: 'Limerence';
+            src: url('https://cdn.jsdelivr.net/gh/mshanh/font@main/Limerence.ttf');
+        }
+
         body { 
-            font-family: 'Segoe UI', Mali; 
+            font-family: 'Limerence', cursive; 
             text-align: center; 
             background-color: #f9f9f9; 
             margin: 0; 
             padding: 20px;
+            color: #333;
         }
+
+        h1 { 
+            font-size: 3.5em; /* Font này hơi mảnh nên mình để to cho đẹp */
+            color: #d63031;
+            margin-bottom: 10px;
+        }
+
+        p { font-size: 1.5em; }
+
         .gallery { 
             display: flex; 
             flex-wrap: wrap; 
             justify-content: center; 
             gap: 25px; 
             padding: 20px; 
-            align-items: flex-start; /* Ảnh vuông hay dài đều giữ nguyên dáng */
+            align-items: flex-start;
         }
+
         img { 
             width: 300px; 
-            height: auto;    /* Tuyệt chiêu chống méo ảnh */
+            height: auto;
             border-radius: 15px; 
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
             transition: 0.3s;
         }
-        img:hover {
-            transform: scale(1.05); /* Di chuột vào ảnh phóng to cho xịn */
-        }
-        h1 { color: #d63031; }
-        p { color: #636e72; }
+
+        img:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
-    <h1>🌟 Kỷ Niệm Sao Nhiệt Tình - Nhiệm kỳ 2025 🌟</h1>
+    <h1>🌟 Kỷ Niệm Sao Nhiệt Tình 🌟</h1>
     <p>Nơi lưu giữ những khoảnh khắc của chúng ta!</p>
 
     <div class="gallery">
