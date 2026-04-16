@@ -18,22 +18,24 @@
         /* 2. Hiệu ứng sao cánh hoa mềm mại */
         .star {
             position: absolute;
-            /* Dùng background-color và mask để hình dạng luôn sắc nét */
-            background-color: white; 
-            -webkit-mask: path('M 50 0 C 61 35 98 35 68 57 C 79 91 50 70 21 91 C 32 57 2 35 39 35 C 50 0 50 0 50 0 Z');
-            mask: path('M 50 0 C 61 35 98 35 68 57 C 79 91 50 70 21 91 C 32 57 2 35 39 35 C 50 0 50 0 50 0 Z');
+            background: white; /* Màu mặc định */
             
-            /* Quan trọng: Giúp hình path co giãn theo kích thước div */
+            /* Bí quyết vẽ hình: Dùng mask SVG để tạo hình 5 cánh hoa bo tròn chuẩn */
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0 C61 35 98 35 68 57 C79 91 50 70 21 91 C32 57 2 35 39 35 C50 0 50 0 50 0 Z' fill='%23fff'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0 C61 35 98 35 68 57 C79 91 50 70 21 91 C32 57 2 35 39 35 C50 0 50 0 50 0 Z' fill='%23fff'/%3E%3C/svg%3E");
+            
+            /* Đảm bảo hình dạng không bị méo */
             -webkit-mask-size: contain;
             mask-size: contain;
             -webkit-mask-repeat: no-repeat;
             mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
 
             opacity: 0.8;
             pointer-events: none;
             animation: falling linear infinite;
         }
-
         @keyframes falling {
             0% {
                 transform: translateY(-10vh) translateX(-20vw) scale(1);
@@ -111,7 +113,7 @@
             star.style.left = left;
             star.style.background = color;
 
-            const blur = sizeValue * 0.5 + 'px';
+            const blur = sizeValue * 1 + 'px';
             star.style.boxShadow = `0 0 ${blur} ${color}, 0 0 ${sizeValue * 4}px ${color}`;
 
             container.appendChild(star);
