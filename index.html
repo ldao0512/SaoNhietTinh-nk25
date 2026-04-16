@@ -18,10 +18,17 @@
         /* 2. Hiệu ứng sao cánh hoa mềm mại */
         .star {
             position: absolute;
-            /* Dùng đường cong (path) để tạo 5 cánh hoa mềm mại */
-            clip-path: path('M 50 0 C 61 35 98 35 68 57 C 79 91 50 70 21 91 C 32 57 2 35 39 35 C 50 0 50 0 50 0 Z');
-            border-radius: 50%; 
-            background: white;
+            /* Dùng background-color và mask để hình dạng luôn sắc nét */
+            background-color: white; 
+            -webkit-mask: path('M 50 0 C 61 35 98 35 68 57 C 79 91 50 70 21 91 C 32 57 2 35 39 35 C 50 0 50 0 50 0 Z');
+            mask: path('M 50 0 C 61 35 98 35 68 57 C 79 91 50 70 21 91 C 32 57 2 35 39 35 C 50 0 50 0 50 0 Z');
+            
+            /* Quan trọng: Giúp hình path co giãn theo kích thước div */
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+
             opacity: 0.8;
             pointer-events: none;
             animation: falling linear infinite;
@@ -104,7 +111,7 @@
             star.style.left = left;
             star.style.background = color;
 
-            const blur = sizeValue * 2 + 'px';
+            const blur = sizeValue * 0.5 + 'px';
             star.style.boxShadow = `0 0 ${blur} ${color}, 0 0 ${sizeValue * 4}px ${color}`;
 
             container.appendChild(star);
