@@ -69,9 +69,39 @@
 </head>
 <body>
     <div id="star-container"></div>
-    <div class="main-title">
-    <img src="tuade.png" alt="Sao Nhiệt Tình NKXXV" class="title-logo">
+  <div class="main-title">
+    <img src="image_10.png" alt="Sao Nhiệt Tình" class="title-logo">
 </div>
+    .main-title {
+    margin: 40px 0 20px 0; /* Khoảng cách trên dưới */
+    text-align: center;
+}
+
+/* Tùy chỉnh Logo Sao Nhiệt Tình */
+.title-logo {
+    /* CHỮ BỰ LÊN: Tăng chiều rộng từ 500px lên 800px hoặc 900px tùy ý bạn */
+    width: 850px; 
+    max-width: 95vw; /* Đảm bảo không bị tràn màn hình điện thoại */
+    height: auto;
+    
+    /* BỎ VIỀN: Đảm bảo không có khung hay viền mặc định */
+    border: none;
+    outline: none;
+    background: transparent;
+
+    /* HIỆU ỨNG LUNG LINH: Thêm bóng sáng nhẹ để nổi bật trên nền đen */
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+
+    /* CHẾ ĐỘ PHÓNG TO: Tăng độ mượt khi chạm/di chuột */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+/* Khi chạm (mobile) hoặc di chuột (PC) vào thì phóng to */
+.title-logo:hover, .title-logo:active {
+    transform: scale(1.1); /* Phóng to 10% */
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+}
     <p>cảm ơn bạn vì đã trở thành một thành viên trong gia đình nhỏ của chúng ta</p>
 
     <div class="gallery">
