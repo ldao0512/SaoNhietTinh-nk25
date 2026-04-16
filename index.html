@@ -30,16 +30,17 @@
 
 @keyframes falling {
     0% {
-        transform: translateY(-10vh) translateX(0) scale(1);
+        /* Bắt đầu ở trên cùng, lệch về bên trái một chút */
+        transform: translateY(-10vh) translateX(-20vw) scale(1);
+        opacity: 0;
+    }
+    10% {
         opacity: 1;
     }
-    50% {
-        opacity: 0.5; /* Đến giữa đường thì mờ đi một chút để tạo cảm giác lấp lánh */
-        transform: translateY(50vh) translateX(50px) scale(0.7); /* Thu nhỏ lại */
-    }
     100% {
-        transform: translateY(110vh) translateX(100px) scale(1.3); /* Cuối đường thì phồng ra */
-        opacity: 0.2;
+        /* Kết thúc ở dưới cùng, lệch sang bên phải */
+        transform: translateY(110vh) translateX(80vw) scale(1.2);
+        opacity: 0;
     }
 }
 
@@ -78,25 +79,27 @@
     </div>
  <script>
     const container = document.getElementById('star-container');
-    const starCount = 250; // Tăng lên 250 ngôi sao cho rực rỡ
+    const starCount = 60; // Giảm 1/2 số lượng xuống còn 60 cho đỡ rối mắt
 
     function getRandomHologramColor() {
         const hue = Math.random() * 360;
-        return `hsl(${hue}, 100%, 80%)`;
+        return `hsl(${hue}, 100%, 85%)`; // Màu nhạt hơn một chút cho dịu mắt
     }
 
     for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'star';
         
-        // SỬA TẠI ĐÂY: Tạo độ chênh lệch kích thước lớn hơn
-        // Có sao tí hon (2px), có sao to hẳn (8px)
-        const sizeValue = Math.random() * 7 + 2; 
+        const sizeValue = Math.random() * 4 + 2; // Kích thước vừa phải
         const size = sizeValue + 'px'; 
         
-        const left = Math.random() * 100 + 'vw';
-        const duration = Math.random() * 5 + 3 + 's';
-        const delay = Math.random() * -20 + 's';
+        // Vị trí xuất hiện ngẫu nhiên bên trái và phía trên để rơi xéo
+        const left = Math.random() * 150 - 50 + 'vw'; 
+        
+        // CHẬM LẠI 1/5: Tăng thời gian từ 15s đến 30s cho một vòng rơi
+        const duration = Math.random() * 15 + 15 + 's'; 
+        
+        const delay = Math.random() * -30 + 's'; // Để sao rải rác sẵn
         const color = getRandomHologramColor();
 
         star.style.width = size;
@@ -105,13 +108,12 @@
         star.style.animationDuration = duration;
         star.style.animationDelay = delay;
         
-        // Thêm độ mờ ngẫu nhiên để tạo cảm giác có sao ở xa, sao ở gần
-        star.style.opacity = Math.random() * 0.7 + 0.3; 
+        // Độ mờ thấp để không gây chói
+        star.style.opacity = Math.random() * 0.4 + 0.2; 
 
         star.style.background = color;
-        // Sao càng to thì quầng sáng (blur) càng rộng
         const blur = sizeValue * 2 + 'px';
-        star.style.boxShadow = `0 0 ${blur} ${color}, 0 0 ${sizeValue * 4}px ${color}`;
+        star.style.boxShadow = `0 0 ${blur} ${color}`;
 
         container.appendChild(star);
     }
