@@ -83,33 +83,41 @@
         <img src="anh2.jpg">
         <img src="anh3.jpg">
     </div>
- <script>
+<script>
     const container = document.getElementById('star-container');
-    const starCount = 60; // Giảm 1/2 số lượng xuống còn 60 cho đỡ rối mắt
+    const starCount = 60; // Giảm số lượng để không gây chóng mặt
 
     function getRandomHologramColor() {
         const hue = Math.random() * 360;
-        return `hsl(${hue}, 100%, 85%)`; // Màu nhạt hơn một chút cho dịu mắt
+        return `hsl(${hue}, 100%, 85%)`; // Màu sắc nhẹ nhàng, dịu mắt
     }
 
     for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'star';
         
-       const baseSize = Math.random() * 8 + 6; // Kích thước cơ bản to hơn (từ 6px - 14px)
-    const star.style.width = baseSize + 'px'; // Chiều rộng
-    const star.style.height = baseSize + 'px'; // Chiều cao (hình dạng cánh hoa cần width=height)
-    
-    // ... (Giữ nguyên phần code phía dưới, bao gồm color, delay, duration, animationDelay)
-    
-    // Thêm một độ mờ ngẫu nhiên để tạo cảm giác có sao ở xa, sao ở gần
-    star.style.opacity = Math.random() * 0.7 + 0.3; 
+        // 1. Thiết lập kích thước (Bỏ chữ 'const' dư thừa gây lỗi)
+        const baseSize = Math.random() * 8 + 6; // Kích thước hoa từ 6px - 14px
+        star.style.width = baseSize + 'px';
+        star.style.height = baseSize + 'px';
+        
+        // 2. Định nghĩa các biến vị trí và tốc độ (Rơi chậm và xéo)
+        const left = Math.random() * 120 - 20 + 'vw'; // Vị trí xuất hiện lệch trái
+        const duration = Math.random() * 15 + 25 + 's'; // Chậm lại 5 lần (25s - 40s)
+        const delay = Math.random() * -30 + 's'; // Sao hiện ra rải rác sẵn
+        const color = getRandomHologramColor();
 
-    star.style.background = color;
-    // Sao càng to thì quầng sáng (blur) càng rộng
-    const blur = baseSize * 2 + 'px';
-    star.style.boxShadow = `0 0 ${blur} ${color}, 0 0 ${baseSize * 4}px ${color}`;
+        // 3. Gán các thuộc tính hiển thị (Bỏ chữ 'const' dư thừa)
+        star.style.left = left;
+        star.style.animationDuration = duration;
+        star.style.animationDelay = delay;
+        star.style.opacity = Math.random() * 0.5 + 0.3; 
+        star.style.background = color;
 
-    container.appendChild(star);
-    // ... (Kết thúc script)
+        // 4. Tạo quầng sáng lấp lánh theo màu hoa
+        const blur = baseSize * 2 + 'px';
+        star.style.boxShadow = `0 0 ${blur} ${color}, 0 0 ${baseSize * 4}px ${color}`;
+
+        container.appendChild(star);
+    }
 </script>
