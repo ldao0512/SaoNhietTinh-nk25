@@ -3,7 +3,7 @@
 <head>
     <title>Kỷ Niệm Sao Nhiệt Tình nk25</title>
     <style>
-        /* 1. Tạo nền bầu trời đêm chuyển màu */
+        /* 1. Thiết lập nền bầu trời */
         body { 
             margin: 0;
             padding: 20px;
@@ -15,42 +15,30 @@
             min-height: 100vh;
         }
 
-        /* 2. Hiệu ứng sao rơi (Meteor) */
-      /* Lớp .star mới: Vẽ ngôi sao 5 cánh mềm mại như cánh hoa */
-.star {
-    position: absolute;
-    /* Dùng clip-path để cắt hình 5 cánh cơ bản */
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    
-    border-radius: 50%; /* Làm sao tròn trịa, mềm mại */
-     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); /* Tạo hình 5 cánh bo tròn */
-}
-    /* BÍ QUYẾT: Dùng border-radius cực lớn để bo tròn toàn bộ các góc của hình clip-path */
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; /* Bo tròn các góc để trông như cánh hoa */
-    background: white; /* Màu mặc định */
-    opacity: 0.8;
-    pointer-events: none; /* Rất quan trọng để click được ảnh */
-    animation: falling linear infinite;
-    
-    /* Quầng sáng lấp lánh (box-shadow) */
-    box-shadow: 0 0 10px white, 0 0 20px white; 
-}
+        /* 2. Hiệu ứng sao cánh hoa mềm mại */
+        .star {
+            position: absolute;
+            /* Tạo hình 5 cánh */
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            /* Bo tròn các góc để mềm như cánh hoa */
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; 
+            background: white;
+            opacity: 0.8;
+            pointer-events: none;
+            animation: falling linear infinite;
+        }
 
-@keyframes falling {
-    0% {
-        /* Bắt đầu ở trên cùng, lệch về bên trái một chút */
-        transform: translateY(-10vh) translateX(-20vw) scale(1);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    100% {
-        /* Kết thúc ở dưới cùng, lệch sang bên phải */
-        transform: translateY(110vh) translateX(80vw) scale(1.2);
-        opacity: 0;
-    }
-}
+        @keyframes falling {
+            0% {
+                transform: translateY(-10vh) translateX(-20vw) scale(1);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            100% {
+                transform: translateY(110vh) translateX(80vw) scale(1.2);
+                opacity: 0;
+            }
+        }
 
         /* 3. Bố cục ảnh kỷ niệm */
         .gallery { 
@@ -75,8 +63,7 @@
     </style>
 </head>
 <body>
-  <div class="night" id="star-container">
-    </div>
+    <div id="star-container"></div>
     <h1>🌟 Sao Nhiệt Tình 🌟</h1>
     <p>cảm ơn bạn vì đã trở thành một thành viên trong gia đình nhỏ của chúng ta</p>
 
@@ -84,46 +71,44 @@
         <img src="anh1.jpg">
         <img src="anh2.jpg">
         <img src="anh3.jpg">
-  <script>
-    const container = document.getElementById('star-container');
-    
-    // 1. Sửa Dòng 88: Giảm số lượng sao
-    const starCount = 30; 
+    </div> <script>
+        const container = document.getElementById('star-container');
+        const starCount = 30; // Số lượng ít cho đỡ rối mắt
 
-    function getRandomHologramColor() {
-        const hue = Math.random() * 360;
-        return `hsl(${hue}, 100%, 85%)`; 
-    }
+        function getRandomHologramColor() {
+            const hue = Math.random() * 360;
+            return `hsl(${hue}, 100%, 85%)`; 
+        }
 
-    for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        
-        // 2. Sửa Dòng 99: Tăng gấp đôi kích thước sao
-        const sizeValue = Math.random() * 12 + 4; // Kích thước to hẳn (4px - 16px)
-        const size = sizeValue + 'px'; 
-        
-        star.style.width = size;
-        star.style.height = size; // Đảm bảo chiều cao bằng chiều rộng để hoa không bị méo
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            // Tăng kích thước sao to (4px - 16px)
+            const sizeValue = Math.random() * 12 + 4; 
+            const size = sizeValue + 'px'; 
+            
+            star.style.width = size;
+            star.style.height = size;
 
-        const left = Math.random() * 150 - 50 + 'vw'; 
-        
-        // 3. Sửa Dòng 106: Giảm tốc độ cực chậm
-        const duration = Math.random() * 30 + 60 + 's'; // Trôi chậm rãi từ 60-90 giây
-        
-        const delay = Math.random() * -60 + 's'; // Để sao rải rác sẵn khi load trang
-        const color = getRandomHologramColor();
+            const left = Math.random() * 150 - 50 + 'vw'; 
+            
+            // Tốc độ cực chậm (60s - 90s cho 1 lần rơi)
+            const duration = Math.random() * 30 + 60 + 's'; 
+            const delay = Math.random() * -60 + 's';
+            const color = getRandomHologramColor();
 
-        star.style.opacity = Math.random() * 0.5 + 0.3; // Độ mờ vừa phải
-        star.style.animationDuration = duration;
-        star.style.animationDelay = delay;
-        star.style.left = left;
-        star.style.background = color;
+            star.style.opacity = Math.random() * 0.5 + 0.3; 
+            star.style.animationDuration = duration;
+            star.style.animationDelay = delay;
+            star.style.left = left;
+            star.style.background = color;
 
-        // Quầng sáng lấp lánh
-        const blur = sizeValue * 2 + 'px';
-        star.style.boxShadow = `0 0 ${blur} ${color}, 0 0 ${sizeValue * 4}px ${color}`;
+            const blur = sizeValue * 2 + 'px';
+            star.style.boxShadow = `0 0 ${blur} ${color}, 0 0 ${sizeValue * 4}px ${color}`;
 
-        container.appendChild(star);
-    }
-</script>
+            container.appendChild(star);
+        }
+    </script>
+</body>
+</html>
