@@ -66,36 +66,35 @@
 
         h1 { font-size: 3em; color: #fff; text-shadow: 0 0 10px #5f91ff; }
         /* Căn chỉnh khối tiêu đề */
-.main-title {
-    margin: 40px 0 20px 0;
-    text-align: center;
-}
-
-/* Tùy chỉnh Logo Sao Nhiệt Tình bự và đẹp */
 .title-logo {
-    /* Đẩy kích thước lên thật bự */
+    /* CHỮ BỰ LÊN: Giữ nguyên kích thước bạn thích */
     width: 900px; 
     max-width: 95vw; 
     height: auto;
     
-    /* Xóa bỏ mọi viền và nền */
+    /* XÓA MÀU NỀN & VIỀN: Ép trình duyệt bỏ hoàn toàn khung tối */
+    background: none !important;
+    background-color: transparent !important;
     border: none !important;
     outline: none !important;
-    background: transparent !important;
+    box-shadow: none !important; /* Xóa bóng đổ dạng khung vuông */
 
-    /* Hiệu ứng tỏa sáng bám theo nét chữ */
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+    /* HIỆU ỨNG TỎA SÁNG: Chỉ tỏa sáng theo nét chữ, không tạo khung */
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)) !important;
 
-    /* Phóng to khi chạm */
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    cursor: pointer;
-    display: inline-block;
+    /* XÓA PHÓNG TO: Đặt lại scale về 1 và xóa transition */
+    transform: scale(1) !important;
+    transition: none !important; 
+    
+    display: block;
+    margin: 0 auto;
+    cursor: default; /* Thay hình bàn tay bằng con trỏ chuột bình thường */
 }
 
-/* Hiệu ứng phóng to khi di chuột hoặc chạm vào */
-.title-logo:hover {
-    transform: scale(1.15); /* Phóng to hẳn 15% cho máu */
-    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.5));
+/* KHÓA LUÔN HIỆU ỨNG HOVER: Đảm bảo di chuột vào không có gì xảy ra */
+.title-logo:hover, .title-logo:active {
+    transform: scale(1) !important;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)) !important;
 }
     </style>
 </head>
