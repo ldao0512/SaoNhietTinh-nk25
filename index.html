@@ -17,25 +17,19 @@
 
         /* 2. Hiệu ứng sao cánh hoa mềm mại */
         .star {
-            position: absolute;
-            background: white; /* Màu mặc định */
-            
-            /* Bí quyết vẽ hình: Dùng mask SVG để tạo hình 5 cánh hoa bo tròn chuẩn */
-            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0 C61 35 98 35 68 57 C79 91 50 70 21 91 C32 57 2 35 39 35 C50 0 50 0 50 0 Z' fill='%23fff'/%3E%3C/svg%3E");
-            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0 C61 35 98 35 68 57 C79 91 50 70 21 91 C32 57 2 35 39 35 C50 0 50 0 50 0 Z' fill='%23fff'/%3E%3C/svg%3E");
-            
-            /* Đảm bảo hình dạng không bị méo */
-            -webkit-mask-size: contain;
-            mask-size: contain;
-            -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
-            -webkit-mask-position: center;
-            mask-position: center;
-
-            opacity: 0.8;
-            pointer-events: none;
-            animation: falling linear infinite;
-        }
+    position: absolute;
+    background: white; /* Màu sắc sẽ do JS thay đổi ngẫu nhiên */
+    
+    /* Hình dạng 5 cánh hoa chuẩn, không bị méo */
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    
+    /* Bí quyết bo tròn: Giúp các đỉnh nhọn trở nên mềm mại như cánh hoa */
+    border-radius: 40%; 
+    
+    opacity: 0.8;
+    pointer-events: none;
+    animation: falling linear infinite;
+}
         @keyframes falling {
             0% {
                 transform: translateY(-10vh) translateX(-20vw) scale(1);
