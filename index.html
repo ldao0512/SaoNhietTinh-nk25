@@ -3,10 +3,13 @@
 <head>
     <title>Kỷ Niệm Sao Nhiệt Tình nk25</title>
     <style>
-        body { font-family: sans-serif; text-align: center; background-color: #f0f2f5; }
-        .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; }
-        img { width: 300px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h1 { color: #ff4757; }
+       img { 
+            max-width: 100%; /* Không bao giờ to quá màn hình */
+            height: auto;    /* Tự động tính chiều cao theo tỷ lệ gốc - KHÔNG BAO GIỜ MÉO */
+            width: 300px;    /* Chỉ quy định chiều rộng cố định */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
