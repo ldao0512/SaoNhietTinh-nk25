@@ -18,10 +18,12 @@
         /* 2. Hiệu ứng sao cánh hoa mềm mại */
         .star {
             position: absolute;
-            /* Tạo hình 5 cánh */
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            /* Bo tròn các góc để mềm như cánh hoa */
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; 
+            /* Bí quyết: Dùng đường cong (path) thay vì đường thẳng (polygon) */
+            clip-path: path('M 50 0 C 61 35 98 35 68 57 C 79 91 50 70 21 91 C 32 57 2 35 39 35 C 50 0 50 0 50 0 Z');
+            
+            /* Bo tròn bổ trợ */
+            border-radius: 50%; 
+            
             background: white;
             opacity: 0.8;
             pointer-events: none;
