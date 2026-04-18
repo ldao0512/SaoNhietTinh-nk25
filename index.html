@@ -14,20 +14,36 @@
             min-height: 100vh;
         }
 
-        .star {
+          .star {
+
             position: absolute;
+
             background: white;
-            /* SỬA LỖI: Thêm fill='white' vào SVG để mask có nội dung */
-            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z'/%3E%3C/svg%3E");
-            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z'/%3E%3C/svg%3E");
+
             
+
+            /* Bí quyết: Dùng Mask SVG để ép hình dạng phải bo tròn mượt mà */
+
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z' stroke-linejoin='round' stroke-width='2' stroke='black'/%3E%3C/svg%3E");
+
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z' stroke-linejoin='round' stroke-width='2' stroke='black'/%3E%3C/svg%3E");
+
+            
+
             -webkit-mask-size: contain;
+
             mask-size: contain;
+
             -webkit-mask-repeat: no-repeat;
+
+
+
             opacity: 0.8;
+
             pointer-events: none;
+
             animation: falling linear infinite;
-            top: -50px; /* Bắt đầu từ trên đỉnh */
+
         }
 
         @keyframes falling {
