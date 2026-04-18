@@ -10,71 +10,76 @@
             margin: 0; padding: 20px; text-align: center;
             background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
             color: white; font-family: 'Segoe UI', sans-serif;
-            min-height: 150vh; position: relative;
+            min-height: 100vh; position: relative; overflow-x: hidden;
         }
 
-        /* 1. FIX SAO: Bo tròn và cố định nền */
+        /* 1. KHÔI PHỤC SAO RƠI CHÉO NGUYÊN BẢN */
         #star-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 0;
         }
         .star {
             position: absolute; background: white;
-            /* Mask chuẩn để tạo hình sao 5 cánh bo tròn */
+            /* Mask tạo hình sao bo tròn */
             -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z'/%3E%3C/svg%3E");
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z'/%3E%3C/svg%3E");
             -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat;
+            opacity: 0;
             animation: falling linear infinite;
         }
+
+        /* Animation rơi chéo từ trái sang phải */
         @keyframes falling {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(-10vh) translateX(-20vw) scale(1) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(110vh) translateX(80vw) scale(1.2) rotate(360deg); opacity: 0; }
         }
 
-        /* 2. BỐ CỤC */
-        .main-content { position: relative; z-index: 10; max-width: 1100px; margin: 0 auto; }
-        .title-logo { width: 100%; max-width: 800px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.3)); }
-        .thank-you-text { font-family: 'Lobster', cursive; font-size: 2em; margin: 40px 0; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        /* 2. BỐ CỤC CHÍNH */
+        .main-content { position: relative; z-index: 10; max-width: 1200px; margin: 0 auto; }
+        .title-logo { width: 100%; max-width: 850px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.3)); }
+        .thank-you-text { font-family: 'Lobster', cursive; font-size: 2em; margin: 30px 0 50px 0; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
         .gallery-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 20px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; padding: 0 20px;
         }
 
-        /* 3. FIX CHÂN MÈO: Đổ bóng theo hình dáng (Drop-shadow) */
+        /* 3. THIẾT KẾ TỆP CHÂN MÈO */
         .folder { position: relative; transition: 0.3s; cursor: pointer; }
-        .folder:hover { transform: scale(1.05); }
+        .folder:hover { transform: scale(1.05) translateY(-5px); }
 
         .folder-tab {
-            width: 60px; height: 15px; background: rgba(255,255,255,0.1);
-            border-radius: 8px 8px 0 0; margin-left: 15px;
+            width: 70px; height: 18px; background: rgba(255,255,255,0.1);
+            border-radius: 10px 10px 0 0; margin-left: 15px;
         }
 
         .folder-body {
-            width: 100%; height: 180px; background: rgba(255,255,255,0.05);
+            width: 100%; height: 190px; background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1); border-radius: 0 15px 15px 15px;
             display: flex; align-items: center; justify-content: center;
             position: relative; backdrop-filter: blur(5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
         .cat-paw {
             position: absolute; width: 85%; height: 85%; object-fit: contain;
-            /* ĐÂY LÀ PHẦN QUAN TRỌNG: Bóng đổ theo nét vẽ chân mèo */
-            filter: drop-shadow(0 8px 10px rgba(255, 180, 190, 0.7)); 
+            /* Bóng đổ xịn theo nét chân mèo */
+            filter: drop-shadow(0 5px 12px rgba(255, 192, 203, 0.6));
             z-index: 1;
         }
 
         .folder-name {
-            font-family: 'Lobster', cursive; font-size: 1.7em; z-index: 2;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            font-family: 'Lobster', cursive; font-size: 1.8em; z-index: 2;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.9);
+            padding: 10px;
         }
 
-        /* Màu chữ theo ý bạn */
+        /* Màu chữ cho từng mục */
         .f1 .folder-name { color: #8ad0ff; } .f2 .folder-name { color: #ffe066; }
         .f3 .folder-name { color: #a3ffac; } .f4 .folder-name { color: #ffb3d9; }
         .f5 .folder-name { color: #c2a3ff; } .f6 .folder-name { color: #8cffff; }
 
-        @media (max-width: 800px) { .gallery-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 850px) { .gallery-grid { grid-template-columns: 1fr 1fr; } }
     </style>
 </head>
 <body>
@@ -84,65 +89,41 @@
         <p class="thank-you-text">cảm ơn bạn vì đã trở thành một thành viên trong gia đình nhỏ của chúng ta</p>
         
         <div class="gallery-grid">
-            <div class="folder f1">
-                <div class="folder-tab"></div>
-                <div class="folder-body">
-                    <img src="Thiết kế chưa có tên.png" class="cat-paw">
-                    <span class="folder-name">Dòng thời gian</span>
-                </div>
-            </div>
-            <div class="folder f2">
-                <div class="folder-tab"></div>
-                <div class="folder-body">
-                    <img src="Thiết kế chưa có tên.png" class="cat-paw">
-                    <span class="folder-name">Thành viên</span>
-                </div>
-            </div>
-            <div class="folder f3">
-                <div class="folder-tab"></div>
-                <div class="folder-body">
-                    <img src="Thiết kế chưa có tên.png" class="cat-paw">
-                    <span class="folder-name">Mật thư</span>
-                </div>
-            </div>
-            <div class="folder f4">
-                <div class="folder-tab"></div>
-                <div class="folder-body">
-                    <img src="Thiết kế chưa có tên.png" class="cat-paw">
-                    <span class="folder-name">Ảnh tập thể</span>
-                </div>
-            </div>
-            <div class="folder f5">
-                <div class="folder-tab"></div>
-                <div class="folder-body">
-                    <img src="Thiết kế chưa có tên.png" class="cat-paw">
-                    <span class="folder-name">Meme</span>
-                </div>
-            </div>
-            <div class="folder f6">
-                <div class="folder-tab"></div>
-                <div class="folder-body">
-                    <img src="Thiết kế chưa có tên.png" class="cat-paw">
-                    <span class="folder-name">Lời gửi gắm</span>
-                </div>
-            </div>
+            <div class="folder f1"><div class="folder-tab"></div><div class="folder-body"><img src="tep.png" class="cat-paw"><span class="folder-name">Dòng thời gian</span></div></div>
+            <div class="folder f2"><div class="folder-tab"></div><div class="folder-body"><img src="tep.png" class="cat-paw"><span class="folder-name">Thành viên</span></div></div>
+            <div class="folder f3"><div class="folder-tab"></div><div class="folder-body"><img src="tep.png" class="cat-paw"><span class="folder-name">Mật thư</span></div></div>
+            <div class="folder f4"><div class="folder-tab"></div><div class="folder-body"><img src="tep.png" class="cat-paw"><span class="folder-name">Ảnh tập thể</span></div></div>
+            <div class="folder f5"><div class="folder-tab"></div><div class="folder-body"><img src="tep.png" class="cat-paw"><span class="folder-name">Meme</span></div></div>
+            <div class="folder f6"><div class="folder-tab"></div><div class="folder-body"><img src="tep.png" class="cat-paw"><span class="folder-name">Lời gửi gắm</span></div></div>
         </div>
     </div>
 
     <script>
         const container = document.getElementById('star-container');
-        for (let i = 0; i < 60; i++) {
+        const starCount = 60;
+
+        function getRandomHologramColor() {
+            const hue = Math.random() * 360;
+            return `hsl(${hue}, 100%, 85%)`;
+        }
+
+        for (let i = 0; i < starCount; i++) {
             const star = document.createElement('div');
             star.className = 'star';
-            const size = Math.random() * 15 + 10;
-            star.style.width = size + 'px'; star.style.height = size + 'px';
-            star.style.left = Math.random() * 100 + 'vw';
-            star.style.animationDuration = Math.random() * 20 + 20 + 's';
-            star.style.animationDelay = Math.random() * -40 + 's';
-            const hue = Math.random() * 360;
-            const color = `hsl(${hue}, 100%, 85%)`;
+            const sizeValue = Math.random() * 20 + 10; 
+            star.style.width = sizeValue + 'px';
+            star.style.height = sizeValue + 'px';
+            
+            // Khôi phục logic vị trí rơi chéo (left rộng để rơi từ ngoài vào)
+            star.style.left = Math.random() * 150 - 50 + 'vw'; 
+            star.style.animationDuration = Math.random() * 30 + 40 + 's';
+            star.style.animationDelay = Math.random() * -70 + 's';
+            
+            const color = getRandomHologramColor();
+            star.style.opacity = Math.random() * 0.5 + 0.3;
             star.style.background = color;
-            star.style.boxShadow = `0 0 ${size}px ${color}`;
+            star.style.boxShadow = `0 0 ${sizeValue / 2}px ${color}, 0 0 ${sizeValue * 2}px ${color}`;
+            
             container.appendChild(star);
         }
     </script>
