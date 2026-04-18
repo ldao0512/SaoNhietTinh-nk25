@@ -1,153 +1,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Kỷ Niệm Sao Nhiệt Tình nk25</title>
-    <style>
-        /* 1. Thiết lập nền bầu trời */
-        body { 
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+    <title>Kỷ Niệm Sao Nhiệt Tình nk25</title>
+    <style>
+        body { 
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
 
-        /* 2. Hiệu ứng sao cánh hoa mềm mại */
-       .star {
-            position: absolute;
-            background: white;
-            
-            /* Bí quyết: Dùng Mask SVG để ép hình dạng phải bo tròn mượt mà */
-            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z' stroke-linejoin='round' stroke-width='2' stroke='black'/%3E%3C/svg%3E");
-            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z' stroke-linejoin='round' stroke-width='2' stroke='black'/%3E%3C/svg%3E");
-            
-            -webkit-mask-size: contain;
-            mask-size: contain;
-            -webkit-mask-repeat: no-repeat;
+        .star {
+            position: absolute;
+            background: white;
+            /* SỬA LỖI: Thêm fill='white' vào SVG để mask có nội dung */
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z'/%3E%3C/svg%3E");
+            
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            opacity: 0.8;
+            pointer-events: none;
+            animation: falling linear infinite;
+            top: -50px; /* Bắt đầu từ trên đỉnh */
+        }
 
-            opacity: 0.8;
-            pointer-events: none;
-            animation: falling linear infinite;
-        }
-       @keyframes falling {
-            0% {
-                /* Bắt đầu ở trên cùng, lệch trái, chưa xoay */
-                transform: translateY(-10vh) translateX(-20vw) scale(1) rotate(0deg);
-                opacity: 0;
-            }
-            10% { opacity: 1; }
-            100% {
-                /* Kết thúc dưới cùng, lệch phải, ĐÃ XOAY 1 VÒNG */
-                transform: translateY(110vh) translateX(80vw) scale(1.2) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        /* 3. Bố cục ảnh kỷ niệm */
-        .gallery { 
-            display: flex; flex-wrap: wrap; justify-content: center; 
-            gap: 30px; padding: 40px; align-items: flex-start;
-        }
-        
-        img { 
-            width: 300px; height: auto; border-radius: 15px; 
-            box-shadow: 0 0 20px rgba(255,255,255,0.1);
-            transition: 0.4s;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
+        @keyframes falling {
+            0% {
+                transform: translateY(0vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(110vh) translateX(20vw) rotate(360deg);
+                opacity: 0;
+            }
+        }
 
-        img:hover { 
-            transform: scale(1.05) translateY(-10px);
-            box-shadow: 0 0 30px rgba(95, 145, 255, 0.5);
-            border-color: #5f91ff;
-        }
+        .gallery { 
+            display: flex; flex-wrap: wrap; justify-content: center; 
+            gap: 30px; padding: 40px; position: relative; z-index: 10;
+        }
+        
+        img { 
+            width: 300px; height: auto; border-radius: 15px; 
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+            transition: 0.4s;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
 
-        h1 { font-size: 3em; color: #fff; text-shadow: 0 0 10px #5f91ff; }
-        /* Căn chỉnh khối tiêu đề */
-.title-logo {
-    /* CHỮ BỰ LÊN: Giữ nguyên kích thước bạn thích */
-    width: 900px; 
-    max-width: 95vw; 
-    height: auto;
-    
-    /* XÓA MÀU NỀN & VIỀN: Ép trình duyệt bỏ hoàn toàn khung tối */
-    background: none !important;
-    background-color: transparent !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important; /* Xóa bóng đổ dạng khung vuông */
-
-    /* HIỆU ỨNG TỎA SÁNG: Chỉ tỏa sáng theo nét chữ, không tạo khung */
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)) !important;
-
-    /* XÓA PHÓNG TO: Đặt lại scale về 1 và xóa transition */
-    transform: scale(1) !important;
-    transition: none !important; 
-    
-    display: block;
-    margin: 0 auto;
-    cursor: default; /* Thay hình bàn tay bằng con trỏ chuột bình thường */
-}
-
-/* KHÓA LUÔN HIỆU ỨNG HOVER: Đảm bảo di chuột vào không có gì xảy ra */
-.title-logo:hover, .title-logo:active {
-    transform: scale(1) !important;
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)) !important;
-}
-    </style>
+        .title-logo {
+            width: 600px; max-width: 90vw;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+            margin: 20px auto;
+        }
+    </style>
 </head>
 <body>
-    <div id="star-container"></div>
-<div class="main-title">
-    <img src="tuade.png" alt="Sao Nhiệt Tình" class="title-logo">
-</div>
-    <p>cảm ơn bạn vì đã trở thành một thành viên trong gia đình nhỏ của chúng ta</p>
+    <div id="star-container"></div>
+    <div class="main-title">
+        <img src="tuade.png" alt="Sao Nhiệt Tình" class="title-logo">
+    </div>
+    <p>Cảm ơn bạn vì đã trở thành một thành viên trong gia đình nhỏ của chúng ta</p>
 
-    <div class="gallery">
-        <img src="anh1.jpg">
-        <img src="anh2.jpg">
-        <img src="anh3.jpg">
-    </div>
+    <div class="gallery">
+        <img src="anh1.jpg" alt="Kỷ niệm 1">
+        <img src="anh2.jpg" alt="Kỷ niệm 2">
+        <img src="anh3.jpg" alt="Kỷ niệm 3">
+    </div>
 
-    <script>
-        const container = document.getElementById('star-container');
-        const starCount = 50; 
+    <script>
+        const container = document.getElementById('star-container');
+        const starCount = 40; 
 
-        function getRandomHologramColor() {
-            const hue = Math.random() * 360;
-            return `hsl(${hue}, 100%, 85%)`; 
-        }
+        function getRandomHologramColor() {
+            const hue = Math.random() * 360;
+            return `hsl(${hue}, 100%, 85%)`; 
+        }
 
-        // Đã thêm dấu { ở cuối dòng này để sửa lỗi cho bạn
-        for (let i = 0; i < starCount; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
 
-            // Kích thước to rõ rệt
-            const sizeValue = Math.random() * 25 + 15; 
-            star.style.width = sizeValue + 'px';
-            star.style.height = sizeValue + 'px';
+            const sizeValue = Math.random() * 20 + 10; 
+            star.style.width = sizeValue + 'px';
+            star.style.height = sizeValue + 'px';
 
-            const left = Math.random() * 150 - 50 + 'vw'; 
-            
-            // Rơi cực chậm (60-90 giây)
-            const duration = Math.random() * 30 + 60 + 's'; 
-            const delay = Math.random() * -60 + 's';
-            const color = getRandomHologramColor();
+            // Giới hạn lại left để sao không rơi ngoài màn hình quá nhiều
+            const left = Math.random() * 100 + 'vw'; 
+            
+            // Tăng tốc độ lên một chút để bạn dễ kiểm tra (15-30s)
+            const duration = Math.random() * 15 + 15 + 's'; 
+            const delay = Math.random() * -30 + 's';
+            const color = getRandomHologramColor();
 
-            star.style.opacity = Math.random() * 0.5 + 0.3; 
-            star.style.animationDuration = duration;
-            star.style.animationDelay = delay;
-            star.style.left = left;
-            star.style.background = color;
+            star.style.animationDuration = duration;
+            star.style.animationDelay = delay;
+            star.style.left = left;
+            star.style.background = color;
 
-            const blur = sizeValue * 1 + 'px';
-            star.style.boxShadow = `0 0 ${blur} ${color}, 0 0 ${sizeValue * 4}px ${color}`;
+            // Hiệu ứng tỏa sáng
+            star.style.boxShadow = `0 0 10px ${color}`;
 
-            container.appendChild(star);
-        }
-    </script>
+            container.appendChild(star);
+        }
+    </script>
 </body>
 </html>
