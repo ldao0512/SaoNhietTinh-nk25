@@ -4,216 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kỷ Niệm Sao Nhiệt Tình nk25</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-    
     <style>
         body { 
-            margin: 0;
-            padding: 20px;
-            text-align: center;
+            margin: 0; padding: 20px; text-align: center;
             background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-            color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
-            /* Tăng chiều cao tối thiểu để trang có thể cuộn, giúp sao rơi đuổi theo chữ */
-            min-height: 150vh; 
-            position: relative;
+            color: white; font-family: 'Segoe UI', sans-serif;
+            min-height: 150vh; position: relative;
         }
 
-        /* 1. FIX LỖI SAO: Thêm lại đầy đủ mask để bo tròn cánh sao */
+        /* 1. FIX SAO: Bo tròn và cố định nền */
         #star-container {
-            position: fixed; /* Giữ container sao luôn cố định trên màn hình khi cuộn */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
         }
-
         .star {
-            position: absolute;
-            background: white;
-            /* Quan trọng: Phải có cả 2 dòng mask này để bo tròn cánh sao trên mọi trình duyệt */
+            position: absolute; background: white;
+            /* Mask chuẩn để tạo hình sao 5 cánh bo tròn */
             -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z'/%3E%3C/svg%3E");
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z'/%3E%3C/svg%3E");
-            -webkit-mask-size: contain;
-            mask-size: contain;
-            -webkit-mask-repeat: no-repeat;
-            opacity: 0;
+            -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat;
             animation: falling linear infinite;
         }
-
         @keyframes falling {
-            0% { transform: translateY(-10vh) translateX(-20vw) scale(1) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
-            100% { transform: translateY(110vh) translateX(80vw) scale(1.2) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
-        .main-content {
-            position: relative;
-            z-index: 10;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        /* 2. BỐ CỤC */
+        .main-content { position: relative; z-index: 10; max-width: 1100px; margin: 0 auto; }
+        .title-logo { width: 100%; max-width: 800px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.3)); }
+        .thank-you-text { font-family: 'Lobster', cursive; font-size: 2em; margin: 40px 0; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
-        .title-logo {
-            width: 100%;
-            max-width: 900px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
-        }
-
-        .thank-you-text {
-            font-family: 'Lobster', cursive;
-            font-size: 2.2em;
-            color: #ffffff;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 2px 2px 4px rgba(0,0,0,0.5);
-            margin: 30px 0 50px 0;
-            letter-spacing: 1px;
-        }
-
-        /* 2. FIX LƯỚI: Đảm bảo chia 2 dòng x 3 cột */
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            padding: 0 20px;
-            margin-bottom: 50px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 20px;
         }
 
-        .folder {
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .folder:hover {
-            transform: scale(1.08) translateY(-5px);
-        }
+        /* 3. FIX CHÂN MÈO: Đổ bóng theo hình dáng (Drop-shadow) */
+        .folder { position: relative; transition: 0.3s; cursor: pointer; }
+        .folder:hover { transform: scale(1.05); }
 
         .folder-tab {
-            width: 30%;
-            height: 12%;
-            background-color: rgba(255,255,255,0.2);
-            border-radius: 10px 10px 0 0;
-            position: absolute;
-            top: -2%;
-            left: 10%;
+            width: 60px; height: 15px; background: rgba(255,255,255,0.1);
+            border-radius: 8px 8px 0 0; margin-left: 15px;
+        }
+
+        .folder-body {
+            width: 100%; height: 180px; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 0 15px 15px 15px;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; backdrop-filter: blur(5px);
+        }
+
+        .cat-paw {
+            position: absolute; width: 85%; height: 85%; object-fit: contain;
+            /* ĐÂY LÀ PHẦN QUAN TRỌNG: Bóng đổ theo nét vẽ chân mèo */
+            filter: drop-shadow(0 8px 10px rgba(255, 180, 190, 0.7)); 
             z-index: 1;
         }
 
-        /* 3. FIX LỖI CHÂN MÈO: Chỉnh background-size để không bị to/cắt */
-        .folder-body {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            background-image: url('tep.png');
-            /* Đổi sang 85% và contain để chân mèo nằm gọn bên trong tệp */
-            background-size: 85%; 
-            background-repeat: no-repeat;
-            background-position: center;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(4px);
-            z-index: 2;
-        }
-
         .folder-name {
-            font-family: 'Lobster', cursive; 
-            font-size: 1.8em;
-            font-weight: bold;
-            text-align: center;
-            padding: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-            line-height: 1.2;
+            font-family: 'Lobster', cursive; font-size: 1.7em; z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
         }
 
-        /* Màu chữ Lobster cho từng mục */
-        .folder-1 .folder-name { color: #8ad0ff; } 
-        .folder-2 .folder-name { color: #ffe066; } 
-        .folder-3 .folder-name { color: #a3ffac; } 
-        .folder-4 .folder-name { color: #ffb3d9; } 
-        .folder-5 .folder-name { color: #c2a3ff; } 
-        .folder-6 .folder-name { color: #8cffff; }
+        /* Màu chữ theo ý bạn */
+        .f1 .folder-name { color: #8ad0ff; } .f2 .folder-name { color: #ffe066; }
+        .f3 .folder-name { color: #a3ffac; } .f4 .folder-name { color: #ffb3d9; }
+        .f5 .folder-name { color: #c2a3ff; } .f6 .folder-name { color: #8cffff; }
 
-        @media (max-width: 850px) {
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-            .thank-you-text { font-size: 1.8em; }
-        }
+        @media (max-width: 800px) { .gallery-grid { grid-template-columns: 1fr 1fr; } }
     </style>
 </head>
 <body>
     <div id="star-container"></div>
-
     <div class="main-content">
-        <div class="main-title">
-            <img src="tuade.png" alt="Kỷ Niệm Sao Nhiệt Tình NKXXV" class="title-logo">
-        </div>
-
+        <img src="tuade.png" class="title-logo">
         <p class="thank-you-text">cảm ơn bạn vì đã trở thành một thành viên trong gia đình nhỏ của chúng ta</p>
-
+        
         <div class="gallery-grid">
-            <div class="folder folder-1">
+            <div class="folder f1">
                 <div class="folder-tab"></div>
-                <div class="folder-body"><span class="folder-name">Dòng thời gian</span></div>
+                <div class="folder-body">
+                    <img src="Thiết kế chưa có tên.png" class="cat-paw">
+                    <span class="folder-name">Dòng thời gian</span>
+                </div>
             </div>
-            <div class="folder folder-2">
+            <div class="folder f2">
                 <div class="folder-tab"></div>
-                <div class="folder-body"><span class="folder-name">Thành viên</span></div>
+                <div class="folder-body">
+                    <img src="Thiết kế chưa có tên.png" class="cat-paw">
+                    <span class="folder-name">Thành viên</span>
+                </div>
             </div>
-            <div class="folder folder-3">
+            <div class="folder f3">
                 <div class="folder-tab"></div>
-                <div class="folder-body"><span class="folder-name">Mật thư</span></div>
+                <div class="folder-body">
+                    <img src="Thiết kế chưa có tên.png" class="cat-paw">
+                    <span class="folder-name">Mật thư</span>
+                </div>
             </div>
-            <div class="folder folder-4">
+            <div class="folder f4">
                 <div class="folder-tab"></div>
-                <div class="folder-body"><span class="folder-name">Ảnh tập thể</span></div>
+                <div class="folder-body">
+                    <img src="Thiết kế chưa có tên.png" class="cat-paw">
+                    <span class="folder-name">Ảnh tập thể</span>
+                </div>
             </div>
-            <div class="folder folder-5">
+            <div class="folder f5">
                 <div class="folder-tab"></div>
-                <div class="folder-body"><span class="folder-name">Meme</span></div>
+                <div class="folder-body">
+                    <img src="Thiết kế chưa có tên.png" class="cat-paw">
+                    <span class="folder-name">Meme</span>
+                </div>
             </div>
-            <div class="folder folder-6">
+            <div class="folder f6">
                 <div class="folder-tab"></div>
-                <div class="folder-body"><span class="folder-name">Lời gửi gắm</span></div>
+                <div class="folder-body">
+                    <img src="Thiết kế chưa có tên.png" class="cat-paw">
+                    <span class="folder-name">Lời gửi gắm</span>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         const container = document.getElementById('star-container');
-        const starCount = 60;
-
-        function getRandomHologramColor() {
-            const hue = Math.random() * 360;
-            return `hsl(${hue}, 100%, 85%)`;
-        }
-
-        for (let i = 0; i < starCount; i++) {
+        for (let i = 0; i < 60; i++) {
             const star = document.createElement('div');
             star.className = 'star';
-            const sizeValue = Math.random() * 20 + 10; 
-            star.style.width = sizeValue + 'px';
-            star.style.height = sizeValue + 'px';
+            const size = Math.random() * 15 + 10;
+            star.style.width = size + 'px'; star.style.height = size + 'px';
             star.style.left = Math.random() * 100 + 'vw';
-            star.style.animationDuration = Math.random() * 30 + 30 + 's';
-            star.style.animationDelay = Math.random() * -60 + 's';
-            const color = getRandomHologramColor();
-            star.style.opacity = Math.random() * 0.5 + 0.3;
+            star.style.animationDuration = Math.random() * 20 + 20 + 's';
+            star.style.animationDelay = Math.random() * -40 + 's';
+            const hue = Math.random() * 360;
+            const color = `hsl(${hue}, 100%, 85%)`;
             star.style.background = color;
-            star.style.boxShadow = `0 0 ${sizeValue / 2}px ${color}, 0 0 ${sizeValue * 2}px ${color}`;
+            star.style.boxShadow = `0 0 ${size}px ${color}`;
             container.appendChild(star);
         }
     </script>
