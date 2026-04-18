@@ -8,173 +8,149 @@
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     
     <style>
-        /* 1. Thiết lập nền bầu trời tối và cơ bản */
         body { 
             margin: 0;
             padding: 20px;
             text-align: center;
-            /* Nền radial gradient tạo cảm giác chiều sâu không gian */
             background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
             color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden; /* Ngăn thanh cuộn ngang */
-            min-height: 100vh;
+            overflow-x: hidden;
+            /* Tăng chiều cao tối thiểu để trang có thể cuộn, giúp sao rơi đuổi theo chữ */
+            min-height: 150vh; 
             position: relative;
         }
 
-        /* 2. Hiệu ứng sao rơi (Giữ nguyên từ code gốc của bạn) */
+        /* 1. FIX LỖI SAO: Thêm lại đầy đủ mask để bo tròn cánh sao */
         #star-container {
-            position: fixed;
+            position: fixed; /* Giữ container sao luôn cố định trên màn hình khi cuộn */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Không làm gián đoạn việc click chuột */
+            pointer-events: none;
             z-index: 0;
         }
 
         .star {
             position: absolute;
             background: white;
-            /* Mask SVG để tạo hình ngôi sao 5 cánh */
+            /* Quan trọng: Phải có cả 2 dòng mask này để bo tròn cánh sao trên mọi trình duyệt */
             -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z'/%3E%3C/svg%3E");
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z'/%3E%3C/svg%3E");
             -webkit-mask-size: contain;
             mask-size: contain;
             -webkit-mask-repeat: no-repeat;
-            opacity: 0; /* Bắt đầu ẩn */
+            opacity: 0;
             animation: falling linear infinite;
         }
 
         @keyframes falling {
             0% { transform: translateY(-10vh) translateX(-20vw) scale(1) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; } /* Hiện rõ khi bắt đầu rơi */
-            100% { transform: translateY(110vh) translateX(80vw) scale(1.2) rotate(360deg); opacity: 0; } /* Ẩn khi rơi hết */
+            10% { opacity: 1; }
+            100% { transform: translateY(110vh) translateX(80vw) scale(1.2) rotate(360deg); opacity: 0; }
         }
 
-        /* 3. Bố cục chính */
         .main-content {
             position: relative;
-            z-index: 10; /* Nằm trên lớp sao rơi */
+            z-index: 10;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* 4. Logo tiêu đề và Dòng cảm ơn */
         .title-logo {
             width: 100%;
-            max-width: 900px; /* Kích thước tối đa của ảnh tiêu đề */
+            max-width: 900px;
             height: auto;
             display: block;
             margin: 0 auto;
-            /* Hiệu ứng tỏa sáng theo nét chữ */
             filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
         }
 
         .thank-you-text {
-            font-family: 'Lobster', cursive; /* Sử dụng font Lobster */
-            font-size: 2.2em; /* Chữ bự */
+            font-family: 'Lobster', cursive;
+            font-size: 2.2em;
             color: #ffffff;
-            /* Hiệu ứng bóng đổ và tỏa sáng cho chữ */
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 2px 2px 4px rgba(0,0,0,0.5);
-            margin: 30px 0 50px 0; /* Khoảng cách trên dưới */
+            margin: 30px 0 50px 0;
             letter-spacing: 1px;
         }
 
-        /* 5. Cấu trúc Lưới 2 dòng x 3 cột cho các Thư mục */
+        /* 2. FIX LƯỚI: Đảm bảo chia 2 dòng x 3 cột */
         .gallery-grid {
             display: grid;
-            /* Tạo 3 cột bằng nhau, tự co giãn */
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 40px; /* Khoảng cách giữa các thư mục */
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
             padding: 0 20px;
+            margin-bottom: 50px;
         }
 
-        /* 6. Thiết kế Thư mục (Folder) */
         .folder {
             width: 100%;
-            aspect-ratio: 4 / 3; /* Tự động tính chiều cao theo tỷ lệ 4:3 */
+            aspect-ratio: 4 / 3;
             position: relative;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 15px;
-            overflow: hidden; /* Bo góc ảnh nền bên trong */
-            /* Bóng đổ cơ bản để tạo khối */
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
         }
 
-        /* Hiệu ứng khi di chuột vào Thư mục */
         .folder:hover {
-            transform: scale(1.05) translateY(-5px); /* Phóng to và bay lên nhẹ */
-            /* Bóng đổ tỏa sáng màu khi hover */
-            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+            transform: scale(1.08) translateY(-5px);
         }
 
-        /* Phần tai thư mục (Tab) - Hiện tại làm mờ ẩn sau ảnh nền */
         .folder-tab {
             width: 30%;
-            height: 10%;
-            background-color: rgba(255,255,255,0.1);
+            height: 12%;
+            background-color: rgba(255,255,255,0.2);
             border-radius: 10px 10px 0 0;
             position: absolute;
-            top: 0;
+            top: -2%;
             left: 10%;
             z-index: 1;
         }
 
-        /* Thân thư mục chứa ảnh nền và tên */
+        /* 3. FIX LỖI CHÂN MÈO: Chỉnh background-size để không bị to/cắt */
         .folder-body {
             width: 100%;
             height: 100%;
             position: absolute;
             bottom: 0;
             left: 0;
-            /* SỬ DỤNG FILE ẢNH CHÂN MÈO CỦA BẠN LÀM NỀN */
             background-image: url('tep.png');
-            background-size: cover; /* Phủ kín */
-            background-position: center; /* Căn giữa */
+            /* Đổi sang 85% và contain để chân mèo nằm gọn bên trong tệp */
+            background-size: 85%; 
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
             display: flex;
-            align-items: center; /* Căn giữa nội dung theo chiều dọc */
-            justify-content: center; /* Căn giữa nội dung theo chiều ngang */
-            /* Viền mờ để phân cách với nền tối */
+            align-items: center;
+            justify-content: center;
             border: 2px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
             z-index: 2;
         }
 
-        /* 7. Thiết kế Tên Thư mục (Text) */
         .folder-name {
             font-family: 'Lobster', cursive; 
-            font-size: 1.8em; /* Kích thước chữ */
+            font-size: 1.8em;
             font-weight: bold;
             text-align: center;
             padding: 20px;
-            /* Tạo hiệu ứng bóng đổ chữ để dễ đọc trên nền ảnh */
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7), 0 0 10px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
             line-height: 1.2;
         }
 
-        /* 8. MÀU SẮC RIÊNG CHO TỪNG MỤC (Tương ứng với hình ảnh) */
-        
-        /* Dòng 1 */
-        .folder-1 .folder-name { color: #8ad0ff; } /* Xanh dương nhẹ */
-        .folder-2 .folder-name { color: #ffe066; } /* Vàng chanh */
-        .folder-3 .folder-name { color: #a3ffac; } /* Xanh lá mint */
-        
-        /* Dòng 2 */
-        .folder-4 .folder-name { color: #ffb3d9; } /* Hồng phấn */
-        .folder-5 .folder-name { color: #c2a3ff; } /* Tím mộng mơ */
-        .folder-6 .folder-name { color: #8cffff; } /* Xanh cyan */
+        /* Màu chữ Lobster cho từng mục */
+        .folder-1 .folder-name { color: #8ad0ff; } 
+        .folder-2 .folder-name { color: #ffe066; } 
+        .folder-3 .folder-name { color: #a3ffac; } 
+        .folder-4 .folder-name { color: #ffb3d9; } 
+        .folder-5 .folder-name { color: #c2a3ff; } 
+        .folder-6 .folder-name { color: #8cffff; }
 
-        /* Responsive: Điều chỉnh cho màn hình nhỏ (điện thoại) */
-        @media (max-width: 768px) {
-            .thank-you-text { font-size: 1.5em; }
-            .gallery-grid {
-                /* Chuyển thành 2 cột trên điện thoại để không bị quá nhỏ */
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 20px;
-            }
-            .folder-name { font-size: 1.3em; }
+        @media (max-width: 850px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .thank-you-text { font-size: 1.8em; }
         }
     </style>
 </head>
@@ -189,90 +165,55 @@
         <p class="thank-you-text">cảm ơn bạn vì đã trở thành một thành viên trong gia đình nhỏ của chúng ta</p>
 
         <div class="gallery-grid">
-            
-            <div class="folder folder-1" onclick="console.log('Chuyển đến trang Dòng thời gian')">
+            <div class="folder folder-1">
                 <div class="folder-tab"></div>
-                <div class="folder-body">
-                    <span class="folder-name"> Dòng thời gian</span>
-                </div>
+                <div class="folder-body"><span class="folder-name">Dòng thời gian</span></div>
             </div>
-
-            <div class="folder folder-2" onclick="console.log('Chuyển đến trang Thành viên')">
+            <div class="folder folder-2">
                 <div class="folder-tab"></div>
-                <div class="folder-body">
-                    <span class="folder-name"> Thành viên</span>
-                </div>
+                <div class="folder-body"><span class="folder-name">Thành viên</span></div>
             </div>
-
-            <div class="folder folder-3" onclick="console.log('Chuyển đến trang Mật thư')">
+            <div class="folder folder-3">
                 <div class="folder-tab"></div>
-                <div class="folder-body">
-                    <span class="folder-name"> Mật thư</span>
-                </div>
+                <div class="folder-body"><span class="folder-name">Mật thư</span></div>
             </div>
-
-            <div class="folder folder-4" onclick="console.log('Chuyển đến trang Ảnh tập thể')">
+            <div class="folder folder-4">
                 <div class="folder-tab"></div>
-                <div class="folder-body">
-                    <span class="folder-name"> Ảnh tập thể</span>
-                </div>
+                <div class="folder-body"><span class="folder-name">Ảnh tập thể</span></div>
             </div>
-
-            <div class="folder folder-5" onclick="console.log('Chuyển đến trang Meme')">
+            <div class="folder folder-5">
                 <div class="folder-tab"></div>
-                <div class="folder-body">
-                    <span class="folder-name"> Meme</span>
-                </div>
+                <div class="folder-body"><span class="folder-name">Meme</span></div>
             </div>
-
-            <div class="folder folder-6" onclick="console.log('Chuyển đến trang Lời gửi gắm')">
+            <div class="folder folder-6">
                 <div class="folder-tab"></div>
-                <div class="folder-body">
-                    <span class="folder-name"> Lời gửi gắm</span>
-                </div>
+                <div class="folder-body"><span class="folder-name">Lời gửi gắm</span></div>
             </div>
+        </div>
+    </div>
 
-        </div> </div> <script>
+    <script>
         const container = document.getElementById('star-container');
-        const starCount = 60; // Số lượng ngôi sao
+        const starCount = 60;
 
-        // Hàm tạo màu ngẫu nhiên cho sao kiểu Hologram (bảy sắc cầu vồng nhạt)
         function getRandomHologramColor() {
-            const hue = Math.random() * 360; // Ngẫu nhiên màu sắc từ 0-360
-            return `hsl(${hue}, 100%, 85%)`; // Độ bão hòa cao, độ sáng cao
+            const hue = Math.random() * 360;
+            return `hsl(${hue}, 100%, 85%)`;
         }
 
-        // Vòng lặp tạo sao
         for (let i = 0; i < starCount; i++) {
             const star = document.createElement('div');
             star.className = 'star';
-
-            // Kích thước ngẫu nhiên (từ 10px đến 30px)
             const sizeValue = Math.random() * 20 + 10; 
             star.style.width = sizeValue + 'px';
             star.style.height = sizeValue + 'px';
-
-            // Vị trí xuất hiện ngẫu nhiên theo chiều ngang (rộng hơn màn hình để rơi chéo)
-            const left = Math.random() * 150 - 50 + 'vw'; 
-            
-            // Thời gian rơi ngẫu nhiên (chậm, từ 40s đến 70s)
-            const duration = Math.random() * 30 + 40 + 's'; 
-            
-            // Độ trễ ngẫu nhiên để các sao không rơi cùng lúc
-            const delay = Math.random() * -70 + 's';
-            
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.animationDuration = Math.random() * 30 + 30 + 's';
+            star.style.animationDelay = Math.random() * -60 + 's';
             const color = getRandomHologramColor();
-
-            // Áp dụng các thuộc tính ngẫu nhiên
-            star.style.opacity = Math.random() * 0.5 + 0.3; // Độ mờ ngẫu nhiên
-            star.style.animationDuration = duration;
-            star.style.animationDelay = delay;
-            star.style.left = left;
+            star.style.opacity = Math.random() * 0.5 + 0.3;
             star.style.background = color;
-            
-            // Hiệu ứng tỏa sáng màu cho ngôi sao
             star.style.boxShadow = `0 0 ${sizeValue / 2}px ${color}, 0 0 ${sizeValue * 2}px ${color}`;
-
             container.appendChild(star);
         }
     </script>
