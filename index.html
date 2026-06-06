@@ -17,7 +17,6 @@
           .star {
                   position: absolute;
                 background: white;
- /* Bí quyết: Dùng Mask SVG để ép hình dạng phải bo tròn mượt mà */
    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z' stroke-linejoin='round' stroke-width='2' stroke='black'/%3E%3C/svg%3E");
               mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6.2 4.5 2.4 7.3-6.2-4.5-6.2 4.5 2.4-7.3-6.2-4.5h7.6z' stroke-linejoin='round' stroke-width='2' stroke='black'/%3E%3C/svg%3E");
             -webkit-mask-size: contain;
@@ -54,10 +53,11 @@
         }
 
         .title-logo {
-            width: 600px; max-width: 90vw;
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
-            margin: 20px auto;
-        }
+    width: 850px; /* Tăng kích thước bự lên (bạn có thể chỉnh số này tùy ý) */
+    max-width: 95vw; /* Đảm bảo không bị tràn màn hình trên điện thoại */
+    margin: 30px auto; /* Tăng khoảng cách trên dưới một chút cho thoáng */
+    /* Đã xóa bỏ dòng filter: drop-shadow để mất hiệu ứng viền mờ */
+}
     </style>
 </head>
 <body>
