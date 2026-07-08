@@ -73,21 +73,44 @@
     </div>
     <p>_Cảm ơn bạn vì đã trở thành một thành viên trong gia đình nhỏ của chúng ta_</p>
 
-   <div class="gallery">
-        <div class="gallery-item">
-            <img src=tep.png" alt="Dòng thời gian">
-        </div>
+  .gallery { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 40px; 
+            padding: 20px; 
+            position: relative; 
+            z-index: 10;
+        }
         
-        <div class="gallery-text">Dòng thời gian</div>
+        /* Khối bọc gồm cả ảnh và chữ dưới ảnh */
+        .gallery-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px; /* Khoảng cách giữa ảnh và chữ */
+            transition: transform 0.3s ease;
+        }
 
-        <div class="gallery-item">
-            <img src="tep.png" alt="thành viên">
-        </div>
+        .gallery-item:hover {
+            transform: translateY(-10px); /* Hiệu ứng nhấc lên nhẹ khi di chuột vào */
+        }
+        
+        .gallery-item img { 
+            width: 300px; 
+            height: auto; 
+            border-radius: 15px; 
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
 
-        <div class="gallery-text">Thành viên</div>
-
-        <div class="gallery-item">
-            <img src="tep.png" alt="Thành viên">
+        /* Định dạng text bên dưới ảnh */
+        .gallery-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
         </div>
     </div>
     <script>
